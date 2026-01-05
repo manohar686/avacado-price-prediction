@@ -1,20 +1,18 @@
-# 🫁 Lung Cancer Prediction Using Machine Learning
+# 🥑 Avocado Price Prediction Using Machine Learning
 
-## 1. Overview
-Lung cancer remains one of the most fatal diseases globally due to late diagnosis and limited early detection methods. This project applies machine learning techniques to predict the likelihood of lung cancer using patient demographic, lifestyle, and symptom-related data. The goal is to demonstrate how data-driven models can assist in early risk assessment and healthcare decision support.
+## 1. Project Overview
+Avocado prices fluctuate significantly due to factors such as region, seasonality, supply-demand imbalance, and product type. Predicting avocado prices accurately can help farmers, distributors, retailers, and policymakers make informed decisions.
 
-This repository contains a complete end-to-end machine learning pipeline, from raw data processing to model evaluation and result interpretation, implemented in a Jupyter Notebook.
+This project focuses on building a **machine learning regression model** to predict average avocado prices using historical sales data. It demonstrates a complete data science workflow including data preprocessing, exploratory data analysis (EDA), feature engineering, model training, evaluation, and result interpretation.
 
 ---
 
-## 2. Problem Definition
-Early-stage lung cancer often goes undetected due to mild or non-specific symptoms. Manual diagnosis based only on symptoms may be subjective and inconsistent.
+## 2. Problem Statement
+To develop a machine learning model that can **predict the average price of avocados** based on historical sales, volume, region, and avocado type.
 
-**Objective:**  
-Build a supervised classification model that predicts whether a patient is likely to have lung cancer based on structured health indicators.
-
-**Type:** Binary Classification  
-**Target Variable:** `LUNG_CANCER (YES / NO)`
+- **Problem Type:** Regression  
+- **Target Variable:** `AveragePrice`  
+- **Goal:** Minimize prediction error and understand key drivers affecting price
 
 ---
 
@@ -23,118 +21,121 @@ Build a supervised classification model that predicts whether a patient is likel
 ---
 
 ## 4. Dataset Description
-The dataset contains patient-level medical and behavioral attributes that influence lung cancer risk. Each row represents one patient record.
+The dataset contains weekly avocado sales data collected from different regions in the United States.
 
-### Feature Explanation
-- **AGE:** Patient age (numeric)
-- **GENDER:** Gender of the patient
-- **SMOKING:** Indicates smoking habits
-- **YELLOW_FINGERS:** Effect of prolonged nicotine exposure
-- **ANXIETY:** Anxiety or stress-related condition
-- **PEER_PRESSURE:** Social influence affecting habits
-- **CHRONIC DISEASE:** Existing long-term illnesses
-- **FATIGUE:** Persistent tiredness
-- **ALLERGY:** Presence of allergic conditions
-- **WHEEZING:** Breathing difficulty or wheezing sounds
-- **ALCOHOL CONSUMING:** Alcohol intake behavior
-- **COUGHING:** Chronic or persistent cough
-- **SHORTNESS OF BREATH:** Difficulty in breathing
-- **CHEST PAIN:** Chest discomfort or pain
-- **LUNG_CANCER:** Target label indicating diagnosis
+### Key Features
+- **Date:** Week of observation  
+- **AveragePrice:** Average price of avocados (Target variable)  
+- **Total Volume:** Total avocados sold  
+- **4046, 4225, 4770:** Sales volume by PLU codes  
+- **Total Bags:** Total bags sold  
+- **Small Bags, Large Bags, XLarge Bags:** Bag size distribution  
+- **Type:** Conventional or Organic avocado  
+- **Year:** Year of observation  
+- **Region:** Sales region  
 
 ---
 
 ## 5. Data Preprocessing
-To ensure data quality and model reliability, the following preprocessing steps were performed:
+The following preprocessing steps were applied to prepare the data for modeling:
 
-- Converted categorical variables into numerical format using label encoding
-- Checked and handled missing or inconsistent values
-- Removed redundant features where applicable
-- Applied feature scaling for distance-based models (SVM, KNN)
-- Ensured balanced class representation during train-test split
+- Converted date column into datetime format
+- Extracted time-based features such as year
+- Encoded categorical variables (`Type`, `Region`)
+- Checked and handled missing values
+- Removed unnecessary or redundant columns
+- Applied feature scaling where required
+- Ensured clean numerical inputs for regression models
 
 ---
 
 ## 6. Exploratory Data Analysis (EDA)
-EDA was conducted to understand patterns, distributions, and relationships within the data.
+EDA was conducted to understand patterns, trends, and relationships within the data.
 
-Key EDA steps:
-- Class distribution analysis to check imbalance
-- Correlation heatmap to identify influential features
-- Visualization of smoking, respiratory symptoms, and cancer correlation
-- Gender- and age-wise lung cancer trend analysis
+### Key Analyses Performed
+- Distribution of avocado prices over time
+- Price comparison between organic and conventional avocados
+- Regional price variation analysis
+- Correlation analysis between volume and price
+- Trend analysis across different years
 
-**Observations:**
-- Smoking and respiratory symptoms show strong correlation with lung cancer
-- Ensemble models benefit from feature interactions
-- Some features have low predictive power individually but improve performance collectively
-
----
-
-## 7. Machine Learning Models Implemented
-Multiple supervised learning algorithms were trained and compared:
-
-- Logistic Regression
-- Decision Tree Classifier
-- Random Forest Classifier
-- Support Vector Machine (SVM)
-- K-Nearest Neighbors (KNN)
-
-Using multiple models allowed performance benchmarking and robustness analysis.
+### Insights
+- Organic avocados are consistently priced higher than conventional ones
+- Prices show seasonal and regional variation
+- Higher supply volume generally correlates with lower prices
 
 ---
 
-## 8. Model Training Strategy
-- Data split: **80% Training / 20% Testing**
-- Stratified sampling to preserve class distribution
-- Hyperparameter tuning applied where relevant
+## 7. Feature Engineering
+To improve model performance:
+- Categorical features were label-encoded
+- Time-based features were extracted from dates
+- Irrelevant columns were dropped
+- Numerical features were scaled where necessary
+
+Feature engineering helped improve model generalization and stability.
+
+---
+
+## 8. Machine Learning Models Used
+Multiple regression models were trained and compared:
+
+- Linear Regression  
+- Decision Tree Regressor  
+- Random Forest Regressor  
+- Support Vector Regressor (SVR)  
+- K-Nearest Neighbors Regressor  
+
+---
+
+## 9. Model Training Strategy
+- Dataset split into **80% training and 20% testing**
+- Models trained on the same feature set for fair comparison
+- Hyperparameter tuning applied to tree-based models
 - Cross-validation used to reduce overfitting risk
 
 ---
 
-## 9. Evaluation Metrics
-Models were evaluated using standard classification metrics:
+## 10. Evaluation Metrics
+Regression models were evaluated using:
 
-- **Accuracy:** Overall correctness
-- **Precision:** Correct positive predictions
-- **Recall:** Ability to identify cancer cases
-- **F1-Score:** Balance between precision and recall
-- **Confusion Matrix:** Error distribution analysis
+- **Mean Absolute Error (MAE)**
+- **Mean Squared Error (MSE)**
+- **Root Mean Squared Error (RMSE)**
+- **R² Score**
 
-### Best Model Performance
-- **Model:** Random Forest Classifier
-- **Accuracy:** ~95%
-- Strong generalization due to ensemble learning
-- Handles feature interactions and non-linearity effectively
+### Best Performing Model
+- **Random Forest Regressor**
+- Achieved lowest RMSE and highest R² score
+- Effectively captured non-linear relationships between features and price
 
 ---
 
-## 10. Results & Insights
-- Smoking-related and respiratory features are the strongest predictors
-- Random Forest consistently outperformed linear models
-- Feature engineering significantly improved model performance
-- ML-based screening can support early risk identification but not diagnosis
+## 11. Results & Key Insights
+- Avocado prices are influenced strongly by type, region, and total volume
+- Ensemble models outperform linear regression
+- Feature engineering and proper preprocessing significantly improve accuracy
+- Machine learning models can effectively forecast commodity prices
 
 ---
 
-## 11. Limitations
-- Dataset size is limited
-- No real-time clinical validation
-- Predictions depend on self-reported symptoms
-- Not suitable for direct medical diagnosis
+## 12. Limitations
+- Dataset limited to U.S. regions only
+- External factors like weather and fuel costs are not included
+- Model performance depends on historical patterns
 
 ---
 
-## 12. Future Enhancements
-- Use real hospital datasets
-- Add model explainability using SHAP or LIME
-- Deploy as a web application using Flask or FastAPI
-- Integrate deep learning models for improved generalization
-- Add automated data validation and monitoring
+## 13. Future Improvements
+- Include external economic and climate data
+- Deploy model using Flask or FastAPI
+- Implement time-series forecasting models
+- Add real-time price prediction dashboard
+- Use deep learning for long-term trend prediction
 
 ---
 
-## 13. How to Run the Project
+## 14. How to Run the Project
 Clone the repository:
 ```bash
-git clone https://github.com/manohar686/Lung-Cancer.git
+git clone https://github.com/manohar686/avocado-price-prediction.git
